@@ -1,0 +1,29 @@
+.search-result{
+	margin-bottom:50px;
+}
+.thumbnail-container{
+	
+}
+.search-result .thumbnail{
+	width:100%;
+	border:1px solid #ececec;
+	padding: 20px;
+}
+.details-container{
+	display: flex;
+    justify-content: center;
+    flex-direction:column;
+    height: 100%;
+}
+.search-result .author{
+	color:#ccc;
+	display:block;
+}
+.search-result .views{
+	color:#ccc;
+	display:block;
+}
+.search-result .likes{
+	color:#a5d890;
+	display:block;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "project-team-04",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc301-winter-2018/project-team-04.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc301-winter-2018/project-team-04/issues"
+  },
+  "homepage": "https://github.com/csc301-winter-2018/project-team-04#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "method-override": "^2.3.10",
+    "mongoose": "^5.0.9",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}

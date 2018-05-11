@@ -1,0 +1,15 @@
+- search course
+	- shows top rated lecture videos for the course on browse page
+- click on interested lecture 
+	- takes user to lecture page, which shows top lecture as the main video by default
+- If a user is sure of the lecture they wanna purchase, click purchase.
+	- Takes user to login screen if not logged in.
+	- After logged in, user can purchase if they have sufficient tokens. 
+	- This adds the specific lecture to the user's purchased vids.
+- Now all videos for that lecture are available to the user.
+- The user can view these videos on his profile page.
+	- Over here, along with user's purchased vids, the user can view his uploaded videos as well.
+- If the user has insufficient tokens, they can upload videos using mobile app
+	-(mobile app stuff)
+- Once vid is uploaded, user will gain a credit, allowing user to purchase more vids
+- Self-maintaining platform shit YAAY!

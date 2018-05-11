@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./_assets/css/all.css">
+	<link rel="stylesheet" type="text/css" href="./_assets/css/videoPages.css">
+	<link rel="stylesheet" type="text/css" href="./_assets/css/nav.css">
+	<link rel="stylesheet" type="text/css" href="./_assets/css/lecture.css">
+	<link rel="stylesheet" type="text/css" href="/_assets/css/searchResult.css">
+
+</head>
+<body>
+	
+	<% include partials/nav %>
+	<% days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; %>
+	<div class="container-fluid padded">
+		<div class="row video-container">
+			<div class="col-xs-12 col-lg-10 offset-lg-1">
+				<!-- <video width="100%" controls>
+					<source src="https://r4---sn-tt1e7n7r.c.drive.google.com/videoplayback?id=86157bf1ef17b1fe&itag=22&source=webdrive&requiressl=yes&mm=30&mn=sn-tt1e7n7r&ms=nxu&mv=m&pl=16&sc=yes&ttl=transient&ei=KNOlWs66GomsuwLZ6JOgDA&susc=dr&driveid=11IkVKJm_RIouNurd5Q_n3l2kjl3FkpVN&app=explorer&mime=video/mp4&lmt=1520813071622802&mt=1520816844&ip=138.51.245.44&ipbits=0&expire=1520820536&cp=QVNHUklfT1VRR1hOOnJ6TThnLTAzQ0lF&sparams=ip,ipbits,expire,id,itag,source,requiressl,mm,mn,ms,mv,pl,sc,ttl,ei,susc,driveid,app,mime,lmt,cp&signature=815457C8E69564FEF0F06A09BE63446113C755DC.5FB160D09F76241145DDBC31F11D10AC294E6931&key=ck2&cpn=-FAOcfnfHSaGH_b0&c=WEB_EMBEDDED_PLAYER&cver=20180308" type="video/mp4">
+				Your browser does not support the video tag.
+				</video> -->
+				<iframe width="100%" frameborder="0" allow="autoplay; encrypted-media" src=<%= mainVideo.link %> allowfullscreen></iframe>
+				<% day = days[mainVideo.date.getDay()]; date = mainVideo.date.getDate(); month = months[mainVideo.date.getMonth()]; year = mainVideo.date.getFullYear();%>
+				<div class="md-text title">
+					<span id="course"><%= mainVideo.course %></span> Lecture <span id="lecture"><%= mainVideo.lecture %></span> - <%= day %> <%= month %> <%= date %>, <%= year %>
+				</div>
+				<div class="sm-text author">
+					Video post by <%= mainVideo.username %>
+				</div>
+				<div class="sm-text likes">
+					<%= mainVideo.upvotes %> upvotes
+				</div>
+				<div id="purchase-btn">
+				<% if(!purchased){ %>	
+					<% if(!currentUser){ %>
+						<a tabindex="0" class="btn btn-primary popover-dismiss" role="button" href="/login">Purchase</a>
+					<% } else { %> 
+						<% if(currentUser.credits == 0){ %>
+							<a tabindex="0" class="btn btn-primary popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Insufficient Tokens!" data-content="You do not have enough tokens to purchase this lecture">Purchase</a>
+						<% } else { %>
+							<a tabindex="0" class="btn btn-primary popover-dismiss hide-click" role="button" data-toggle="popover" data-trigger="focus" title="Successful!" data-content="You have successfully purchased this lecture.">Purchase</a>
+						<% } %>
+					<% } %>
+				<% } %>
+				</div>
+				<!-- <button type="button" class="btn btn-primary">Purchase</button> -->
+			</div>
+		</div>
+
+		<div id="other-vids-text">Other Videos of the same lecture:</div>
+		<div class="row video-container search-result">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<% otherVideos.forEach(function(vid){ 
+				day = days[vid.date.getDay()]; date = vid.date.getDate(); month = months[vid.date.getMonth()]; year = vid.date.getFullYear();%>
+					<!-- Extra Vid -->
+					<div>
+						<div class="thumbnail-container">
+							<img class = "thumbnail" src="logo.png" alt="">		
+						</div>
+						<div class="details-container">
+							<div class="md-text title">
+								<form action="/lecture" method="post">
+									<input type="hidden" name="course" value=<%= vid.course %>>
+									<input type="hidden" name="lecture" value=<%= vid.lecture %>>
+									<input type="hidden" name="user" value="<%= vid.user %>">
+									<a href="#" class="lec-title">
+										<%= vid.course %> Lecture <%= vid.lecture %> - <%= day %> <%= month %> <%= date %>, <%= year %>
+									</a>
+								</form>
+							</div>
+							<div class="sm-text author">
+								Video post by <%= vid.username %>
+							</div>
+							<!-- <div class="sm-text views">
+								45 videos
+							</div> -->
+							<div class="sm-text likes">
+								<%= vid.upvotes %> upvotes
+							</div>
+						</div>
+					</div>
+					<!-- Extra Vid -->
+				<% }); %>
+			</div>
+		</div>
+	</div>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$('.popover-dismiss').popover({
+		  	trigger: 'focus'
+		});
+		$('.hide-click').on("click", function() {
+		  	$(this).delay(2000).fadeOut(1000);
+		  	$.ajax({
+		  		type: "POST",
+		  		url: "/addVideo",
+		  		data: {course: $("#course").text(), 
+		  			lecture: $("#lecture").text()},
+		  		success: function (result) {
+		  			$("#credits").text(result);
+		  		},
+		  		failure: function (err) {
+		  			console.log(err);
+		  		}
+		  	});
+		});
+	</script>
+	<script type="text/javascript" src="/_assets/js/browse.js"></script>
+</body>
+</html>

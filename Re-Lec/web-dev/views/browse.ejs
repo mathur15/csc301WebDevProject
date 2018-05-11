@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./_assets/css/all.css">
+	<link rel="stylesheet" type="text/css" href="./_assets/css/videoPages.css">
+	<link rel="stylesheet" type="text/css" href="./_assets/css/nav.css">
+	<link rel="stylesheet" type="text/css" href="/_assets/css/searchResult.css">
+
+</head>
+<body>
+	<% include ./partials/nav %>
+	<div class="container-fluid padded">
+		<div class="row">
+			<div class="col sm-12">
+				<p class="md-text">Search results for "<%= search %>"</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="container-fluid">
+					<!-- Add a result for every video in the database for the searched course -->
+					<% days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+					months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+					result.forEach(function(vid){ 
+						day = days[vid.date.getDay()]; date = vid.date.getDate(); month = months[vid.date.getMonth()]; year = vid.date.getFullYear();%>
+						<div class="row search-result">
+							<div class="col-sm-4 thumbnail-container">
+								<img class = "thumbnail" src="logo.png" alt="">		
+							</div>
+							<div class="col-sm-8">
+								<div class="row details-container">
+									<div class="md-text title">
+										<form action="/lecture" method="post">
+											<input type="hidden" name="course" value=<%= vid.course %>>
+											<input type="hidden" name="lecture" value=<%= vid.lecture %>>
+											<input type="hidden" name="user" value="<%= vid.user %>">
+											<a href="#" class="lec-title">
+												<%= vid.course %> Lecture <%= vid.lecture %> - <%= day %> <%= month %> <%= date %>, <%= year %>
+											</a>
+										</form>
+									</div>
+									<div class="sm-text author">
+										Top video post by <%= vid.username %>
+									</div>
+									<div class="sm-text views">
+										<%= vid.count %> videos
+									</div>
+									<div class="sm-text likes">
+										<%= vid.upvotes %> upvotes
+									</div>
+								</div>
+							</div>
+						</div>
+					<% }); %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="/_assets/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/_assets/js/browse.js"></script>
+</body>
+</html>
